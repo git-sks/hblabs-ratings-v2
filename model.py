@@ -12,9 +12,13 @@ class User(db.Model):
     __tablename__ = "users"
 
     # table columns
-    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True,)
-    email = db.Column(db.String, unique=True,)
-    password = db.Column(db.String,)
+    user_id = db.Column(db.Integer,
+                        primary_key=True,
+                        autoincrement=True,
+                        nullable=True,
+                        )
+    email = db.Column(db.String, unique=True, nullable=True,)
+    password = db.Column(db.String, nullable=True,)
 
     def __repr__(self):
         """Human-readable summary of a user"""
@@ -41,6 +45,25 @@ class Movie(db.Model):
         return (f'<Movie movie_id={self.movie_id} '
             + f'title={self.title} '
             + f'release_date={self.release_date}>')
+
+
+class Rating(db.Model):
+    """A rating."""
+
+    # table name
+    __tablename__ = "ratings"
+
+    # table columns
+    rating_id = db.Column(db.Integer, primary_key=True, autoincrement=True,)
+    score = db.Column(db.Integer,)
+    movie_id = db.Column(db.Integer, db.ForeignKey('movies.movie_id'),)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'),)
+
+    def __repr__(self):
+        """Human-readable summary of a movie."""
+
+        return (f'<Rating rating_id={self.rating_id} score={self.score} '
+                + f'movie_id={self.movie_id} user_id={self.user_id}')
 
 
 def connect_to_db(flask_app, db_uri='postgresql:///ratings', echo=True):
