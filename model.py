@@ -17,9 +17,30 @@ class User(db.Model):
     password = db.Column(db.String,)
 
     def __repr__(self):
-        """Human-readable summary of User"""
+        """Human-readable summary of a user"""
 
-        return f'<User user_id={self.user_id} email={self.email}'
+        return f'<User user_id={self.user_id} email={self.email}>'
+
+
+class Movie(db.Model):
+    """A movie."""
+
+    # table name
+    __tablename__ = "movies"
+
+    # table columns
+    movie_id = db.Column(db.Integer, primary_key=True, autoincrement=True,)
+    title = db.Column(db.String,)
+    overview = db.Column(db.Text,)
+    release_date = db.Column(db.DateTime,)
+    poster_path = db.Column(db.String,) # movie image URL
+
+    def __repr__(self):
+        """Human-readable summary of a movie."""
+
+        return (f'<Movie movie_id={self.movie_id} '
+            + f'title={self.title} '
+            + f'release_date={self.release_date}>')
 
 
 def connect_to_db(flask_app, db_uri='postgresql:///ratings', echo=True):
