@@ -36,10 +36,14 @@ class Movie(db.Model):
     __tablename__ = "movies"
 
     # table columns
-    movie_id = db.Column(db.Integer, primary_key=True, autoincrement=True,)
-    title = db.Column(db.String,)
+    movie_id = db.Column(db.Integer,
+                        primary_key=True,
+                        autoincrement=True,
+                        nullable=False,
+                        )
+    title = db.Column(db.String, nullable=False,)
     overview = db.Column(db.Text,)
-    release_date = db.Column(db.DateTime,)
+    release_date = db.Column(db.DateTime, nullable=False,)
     poster_path = db.Column(db.String,) # movie image URL
 
     # relationships
@@ -60,10 +64,20 @@ class Rating(db.Model):
     __tablename__ = "ratings"
 
     # table columns
-    rating_id = db.Column(db.Integer, primary_key=True, autoincrement=True,)
-    score = db.Column(db.Integer,)
-    movie_id = db.Column(db.Integer, db.ForeignKey('movies.movie_id'),)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'),)
+    rating_id = db.Column(db.Integer,
+                            primary_key=True,
+                            autoincrement=True,
+                            nullable=False,
+                            )
+    score = db.Column(db.Integer, nullable=False,)
+    movie_id = db.Column(db.Integer,
+                        db.ForeignKey('movies.movie_id'),
+                        nullable=False,
+                        )
+    user_id = db.Column(db.Integer, 
+                        db.ForeignKey('users.user_id'),
+                        nullable=False,
+                        )
 
     # relationships
     movie = db.relationship('Movie', backref='ratings')
