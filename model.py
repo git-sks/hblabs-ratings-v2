@@ -15,10 +15,10 @@ class User(db.Model):
     user_id = db.Column(db.Integer,
                         primary_key=True,
                         autoincrement=True,
-                        nullable=True,
+                        nullable=False,
                         )
-    email = db.Column(db.String, unique=True, nullable=True,)
-    password = db.Column(db.String, nullable=True,)
+    email = db.Column(db.String, unique=True, nullable=False,)
+    password = db.Column(db.String, nullable=False,)
 
     # relationships
     # ratings = a list of Rating objects
