@@ -42,3 +42,16 @@ for entry in movie_data:
     movies_in_db.append(movie)
 
 
+# seed fake test users
+## create 10 users, each with 10 ratings
+for n in range(10):
+    email = f'user{n}@test.com' # unique email
+    password = 'test'
+
+    user = crud.create_user(email, password)
+
+    for _ in range(10):
+        movie = choice(movies_in_db)
+        score = randint(1, 5)
+
+        crud.create_rating(user, movie, score)
